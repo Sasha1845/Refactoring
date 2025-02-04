@@ -3,7 +3,12 @@ class Student {
         this.lastName = lastName;
         this.firstName = firstName;
         this.grades = grades;
-        this.avg = 0; // Initialize avg as 0
+        this.avg = this.calculateAvg(); // Calculate avg upon initialization
+    }
+
+    calculateAvg() {
+        const sum = this.grades.reduce((acc, grade) => acc + grade, 0);
+        return sum / this.grades.length;
     }
 }
 
@@ -27,9 +32,9 @@ class ListOfStudents {
     }
 }
 
-class StylesTable extends ListOfStudents {
+class StylesTable {
     constructor(students) {
-        super(students);
+        this.students = students;
     }
 
     getStyles() {
@@ -54,26 +59,12 @@ class StylesTable extends ListOfStudents {
     }
 
     getTableList() {
-        this.getAvg(); // Calculate the average before rendering the table
-        return `${this.getStyles()}${super.getTableList()}`;
-    }
-
-    getAvg() {
-        this.students.forEach((student) => {
-            let sum = 0;
-            student.grades.forEach((grade) => {
-                sum += grade;
-            });
-            student.avg = sum / student.grades.length; // Calculate average
-        });
+        return `${this.getStyles()}${new ListOfStudents(this.students).getTableList()}`;
     }
 
     getTotalAvg() {
-        let sum = 0;
-        this.students.forEach((student) => {
-            sum += student.avg;
-        });
-        return (sum / this.students.length).toFixed(1); // Round total average to 1 decimal
+        const totalAvg = this.students.reduce((sum, student) => sum + student.avg, 0);
+        return (totalAvg / this.students.length).toFixed(1); // Round total average to 1 decimal
     }
 }
 
@@ -85,9 +76,6 @@ const students = [
 
 // Створення об'єкта класу StylesTable
 const stylesTable = new StylesTable(students);
-
-// Обчислюємо середні бали для кожного студента
-stylesTable.getAvg();
 
 // Виведення результатів
 document.body.innerHTML = `
