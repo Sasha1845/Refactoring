@@ -1,12 +1,12 @@
 .thumbnail {
-            width: 100px;
-            height: auto;
-            cursor: pointer;
-            margin: 5px;
-        }
-        .image-container img {
-            margin: 5px;
-        }
-        .error {
-            color: red;
-        }
+  width: 100px;
+  height: auto;
+  cursor: pointer;
+  margin: 5px;
+}
+.image-container img {
+  margin: 5px;
+}
+.error {
+  color: red;
+}
